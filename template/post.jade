@@ -1,0 +1,99 @@
+extends index
+block title
+	title= post.title + ' - ' + site.title
+
+block main
+	#contents
+		article(data-aos='fade-up')
+			.meta
+				h2
+					p
+						time(datetime= post.date.format('%Y-%m-%d'))= post.date.format('%b %d, %Y')
+			#post
+				.title_content
+					span.post_title= post.title
+				.info
+					span= ('{0:,}'.format(post.text_words)) + '字'
+					if post.category
+						| •
+						a(href=post.category.url)= post.category.title
+					if post.tags
+						for tag in post.tags
+							| •
+							a(href='/tag/{{tag}}')= tag
+					| •
+					span= ('{0:,}'.format(post.visits or 0)) + '次阅读'
+					if post.metadata.comment not in ['no', 'No', False]
+						| •
+						a(href='#comment')= ('{0:,}'.format(post.comments_count or 0)) + '条评论'
+				if post.metadata.indent in ['yes', 'cancel','0', True]
+					+h.load("/template/indent.scss")
+				post.content
+				#end
+					if post.metadata.tbc in ['yes', 'cancel','0', True]
+						span 未完待续
+					else
+						span End.
+
+			if post.metadata.status not in ['page', 'Page']
+				#pre-next
+					if posts.previous_one
+						.pre
+							time(datetime= posts.previous_one.date.format('%Y-%m-%d'))= posts.previous_one.date.format('%Y/%m/%d')
+							
+							a(href=posts.previous_one.url)
+								span= posts.previous_one.title
+	
+					if posts.next_one
+						.next
+							time(datetime= posts.next_one.date.format('%Y-%m-%d'))= posts.next_one.date.format('%Y/%m/%d')
+							a(href=posts.next_one.url)
+								span= posts.next_one.title
+
+	
+			if post.metadata.comment not in ['no', 'No', False]
+				#comment
+					+post.comments_as_html()
+	+h.back_to_top(label='↾')
+		
+	script.
+		(function() {
+		var p = document.querySelectorAll('#post p.md_block');
+		var regex = /^\{\{(!)?(.*)\}\}$/;
+		var len = p.length;
+		for (var i = 0; i < len; i++) {
+		var first = p[i].firstElementChild;
+		if (!first) {continue;}
+		var matches = first.textContent.match(regex);
+		if (!matches) {continue;}
+		var legendHtml = '<p class="md_compiled md_paragraph_html"><legend class="foldup-caption" style="cursor:hand" onclick="isHidden(this)"></legend></p >'; // don't add unescaped matches[2] here
+		var divHtml = '<div class="foldup" style="display:' + (matches[1] ? 'block' : 'none') + '">';
+		var lines = p[i].children;
+		var count = lines.length;
+		for (var j = 1; j < count; j++) {
+		divHtml += '<p>' + lines[j].innerHTML + '</p >';
+		}
+		divHtml += '</div>';
+		p[i].insertAdjacentHTML('beforebegin', legendHtml);
+		p[i].previousSibling.firstChild.textContent = matches[2];
+		p[i].insertAdjacentHTML('beforebegin', divHtml);
+		p[i].remove();
+		}
+		})()
+	script.
+		(function() {
+		var p = document.querySelectorAll('#post p.md_block');
+		for (var i = 0; i < p.length; i++) {
+		var first = p[i].firstElementChild;
+		if (!first) {continue;}
+		if (first.textContent !== '!Warning') {continue;}
+		p[i].removeChild(first);
+		p[i].className = 'warning';
+		}
+		})()
+
+	script(type='text/javascript').
+		function isHidden(el) {
+		var vDiv = el.parentNode.nextElementSibling
+		vDiv.style.display = (vDiv.style.display == 'none')?'block':'none';//反转
+		}

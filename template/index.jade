@@ -1,0 +1,75 @@
+html
+	head
+		block title
+			if site.configs.sub_title
+				title= site.title + ' - ' + site.configs.sub_title
+			else
+				title= site.title
+		+h.headers
+		+h.load('/template/style.scss')
+		link(rel='stylesheet', href='https://unpkg.com/aos@next/dist/aos.css')
+		link(rel='apple-touch-icon', href=site.site_avatar)
+		link(href='https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,500,600,900&display=swap', rel='stylesheet')
+
+	body
+		.loader
+			.loader-content
+				.lds-dual-ring
+				span.loading-text="LOADING"
+		header
+			nav(data-aos='fade-up')
+				+site.just_nav
+				+posts.search_in_html(placeholder='搜索', base_url='/search')
+			if site.configs.sub_title
+				.site_config(data-aos='fade-up')
+					span= site.configs.sub_title
+			h1.site_title(data-aos='fade-up')= site.title
+
+
+		main
+			block main
+				#contents
+					recent_posts = posts.get_recent(6)
+					for post in recent_posts
+						article(data-aos='fade-up')
+							.meta
+								h2
+									p
+										time(datetime= post.date.format('%Y-%m-%d'))= post.date.format('%b %d, %Y')
+							.article_text
+								a(href=post.url)= post.title
+								.summary= post.content.limit(words=120).no_pic.plain
+		footer
+			#site_footer
+				.site_footer_icon
+					img(src=site.avatar, alt=site.configs.admin_name)
+				.site_footer_text
+					#admin_info
+						if site.configs.admin_name
+							span.blogger_name= site.configs.admin_name
+						else
+							span.blogger_name= site.title
+						.description
+							p= "博主简介"
+					#site_info
+						span= '截至'+ site.now.year + '年，本站共有'
+						span= '%s篇文章，' %(d.get_data(types='post', return_count=true, with_page=false))
+						span= '%s字。' %('{0:,}'.format(site.text_words))
+				#powered_by
+					+site.socials
+					| Theme <a href='https://mrx.moe/zi-zhi/bitcron-theme-sara', target='_blank'>Sara</a> by <a href='https://mrx.moe', target='_blank'>MRX</a>, Powered by <a href='https://bitcron.com', target='_blank'>Bitcron</a>
+
+		+h.back_to_top(label='↾')
+
+		script(src='https://unpkg.com/aos@next/dist/aos.js')
+		script.
+			AOS.init();
+
+		script#rendered-js.
+			window.onload = function () {
+			setTimeout(function () {
+			var loader = document.getElementsByClassName("loader")[0];
+			loader.className = "loader fadeout"; //使用渐隐的方法淡出loading page
+			setTimeout(function () {loader.style.display = "none";}, 1000);
+			}, 300);
+			};

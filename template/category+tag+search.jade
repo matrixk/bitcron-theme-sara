@@ -1,0 +1,49 @@
+extends index
+
+block title
+	if request.path.startswith('/category/') and posts.category
+		title= '分类：' + posts.category.title + ' - ' + site.title
+	elif request.path.startswith('/tag/') and posts.tags
+		title= '标签：' + posts.tags.join('+') + ' - ' + site.title
+	elif request.args.s
+		title= '搜索关键字：' + request.args.s + ' - ' + site.title
+	else
+		title= site.title
+
+block main
+	#contents
+		article(data-aos='fade-up')
+			if request.path.startswith('/category/') and posts.category
+				.cts_text
+					.meta
+						h2
+							p
+								span.single_line= '分类'
+				span.cts_label= '「' + posts.category.title + '」' + '下的文章'
+			
+			elif request.path.startswith('/tag/') and posts.tags
+				.cts_text
+					.meta
+						h2
+							p
+								span.single_line= '标签'
+				span.cts_label= '「' + posts.tags.join('+') + '」' + '下的文章'
+			
+			elif request.args.s
+				.cts_text
+					.meta
+						h2
+							p
+								span.single_line= '搜索'
+				span.cts_label= '「' + request.args.s + '」' + '下的文章'
+
+		#post-list
+			.article_text
+				ul: for post in posts
+					li(data-aos='fade-up')
+						time(datetime= post.date.format('%Y-%m-%d'))= post.date.format('%Y/%m/%d')
+						a(href=post.url)
+							span= post.title
+
+		#pager
+			+h.paginator(style='mini', max_count='10')
