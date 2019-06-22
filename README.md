@@ -1,2 +1,1 @@
-# bitcron-theme-sara
-还是一个Bitcron主题
+# Bitcron主题「皿」
