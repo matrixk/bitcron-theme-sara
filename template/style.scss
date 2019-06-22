@@ -1,8 +1,7 @@
 /*
 Author: MRX
-Author URI: https://mrx.moe/
+Author URI: https://mrx.moe
 Copyright: © 2019 MRX
-Special Thanks: SeaDragonDrify
 */
 
 /* Customize ----------------------------------*/
@@ -424,17 +423,48 @@ article {
             }
         }
     }
-    table {
-        border: #111 1px solid;
-        margin: 0 auto;
-        width: 100%;
-        th {
-            background: $grey-color;
-            padding: 0.6em 1em;
+    table{
+        margin: 1.5em auto;
+        padding: 0;
+        word-break: initial;
+        border-collapse: collapse;
+        thead {
+            tr {
+                background: $second-bg-color;
+            }
         }
-        td {
-            padding: 1em;
-            background: $second-bg-color;
+        tr {
+            border-top: 1px solid #cccccc;
+            margin: 0;
+            padding: 0;
+            &:nth-child(2n) {
+                background-color: #f8f8f8;
+            }
+            th {
+                font-weight: bold;
+                border: 1px solid #cccccc;
+                text-align: left;
+                margin: 0;
+                padding: 8px 13px;
+                &:first-child {
+                    margin-top: 0;
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            td {
+                border: 1px solid #cccccc;
+                text-align: left;
+                margin: 0;
+                padding: 8px 13px;
+                &:first-child {
+                    margin-top: 0;
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
         }
     }
     code {
@@ -565,8 +595,11 @@ article {
 .foldup {
     font-size: 0.8em;
     background: $second-bg-color;
-    padding: 0.1em 1.5em;
+    padding: 1em 1.5em;
     border-top: #cecece 1px dashed;
+    p {
+        margin: 0;
+    }
 }
 
 #end {
@@ -1110,8 +1143,8 @@ article {
     text-align: center;
     color: #fff;
     font-size: 0.8em;
+    font-weight: 900;
     line-height: 1em;
-    letter-spacing: 0.2em;
 }
 
 /* Responsive ---------------------------------*/
