@@ -41,17 +41,17 @@ html
 								.summary= post.content.limit(words=120).no_pic.plain
 		footer
 			#site_footer
-				.site_footer_icon
+				.site_footer_icon(data-aos='fade-up')
 					img(src=site.avatar, alt=site.configs.admin_name)
 				.site_footer_text
-					#admin_info
+					#admin_info(data-aos='fade-up')
 						if site.configs.admin_name
 							span.blogger_name= site.configs.admin_name
 						else
 							span.blogger_name= site.title
-						.description
+						.description(data-aos='fade-up')
 							p= "博主简介"
-					#site_info
+					#site_info(data-aos='fade-up')
 						span= '截至'+ site.now.year + '年，本站共有'
 						span= '%s篇文章，' %(d.get_data(types='post', return_count=true, with_page=false))
 						span= '%s字。' %('{0:,}'.format(site.text_words))

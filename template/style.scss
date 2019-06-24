@@ -1,7 +1,8 @@
 /*
 Author: MRX
-Author URI: https://mrx.moe
+Author URI: https://mrx.moe/
 Copyright: © 2019 MRX
+Special Thanks: SeaDragonDrify
 */
 
 /* Customize ----------------------------------*/
@@ -52,7 +53,7 @@ body {
 
 header {
     padding: 4em 0 7em 0;
-    background-image: url(./image/bgimg.png);
+    background-image: url(./image/bgimg.webp);
     background-position-y: 34%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -272,6 +273,8 @@ footer {
             }
         }
         .site_footer_text {
+            font-size: 0.9em;
+            line-height: 1.8;
             text-align: right;
             position: relative;
             display: inline-block;
@@ -323,7 +326,7 @@ article {
     margin: 0 auto;
     .article_text {
         a {
-            font-size: 1.2em;
+            font-size: 1.5em;
             font-weight: 900;
             color: #000;
             text-decoration: none;
@@ -333,6 +336,9 @@ article {
             &:hover {
                 background-size: 100% 100%;
             }
+        }
+        .summary {
+            margin: 1em 0;
         }
     }
 }
@@ -782,6 +788,9 @@ article {
             padding: 1em 0 0!important;
             word-break: inherit!important;
             border-width: 1px!important;
+            p {
+                text-indent: 0!important;
+            }
             .author {
                 padding-bottom: 0!important;
                 b {
@@ -1218,7 +1227,7 @@ header {
 
 article {
     .meta {
-        height: 8.7em;
+        height: 9.7em;
         h2 {
             left: calc(50% - 0.707*100px);
             bottom: 3.5em;
