@@ -344,7 +344,7 @@ article {
 }
 
 .post_title {
-    font-size: 1.8em;
+    font-size: 1.5em;
     line-height: 1.5;
     display: inline;
     font-weight: 900;
@@ -507,6 +507,7 @@ article {
         }
     }
     h1 {
+        font-size: 1.5em;
         &:before {
             position: relative;
             display: block;
@@ -1287,7 +1288,6 @@ article {
 }
 .post_title {
     margin: 0;
-    font-size: 1.3em;
 }
 footer #site_footer {
     margin: 0 1em;
@@ -1300,7 +1300,6 @@ footer #site_footer {
     }
     h1 {
         margin-left: 1.5em;
-        font-size: 1.2em;
         &:before {
             left: -1.5em;
             top: 1.24em;
