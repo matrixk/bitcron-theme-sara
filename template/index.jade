@@ -7,9 +7,9 @@ html
 				title= site.title
 		+h.headers
 		+h.load('/template/style.scss')
+		link(href='https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,600,900|Source+Code+Pro:300&display=swap', rel='stylesheet')
 		link(rel='stylesheet', href='https://unpkg.com/aos@next/dist/aos.css')
 		link(rel='apple-touch-icon', href=site.site_avatar)
-		link(href='https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,600,900|Source+Code+Pro:300&display=swap', rel='stylesheet')
 
 	body
 		.loader
@@ -38,7 +38,10 @@ html
 										time(datetime= post.date.format('%Y-%m-%d'))= post.date.format('%b %d, %Y')
 							.article_text
 								a(href=post.url)= post.title
-								.summary= post.content.limit(words=120).no_pic.plain
+								if post.metadata.summary
+									.summary= post.metadata.summary
+								else
+									.summary= post.content.limit(words=120).no_pic.plain
 		footer
 			#site_footer
 				.site_footer_icon(data-aos='fade-up')
@@ -49,15 +52,25 @@ html
 							span.blogger_name= site.configs.admin_name
 						else
 							span.blogger_name= site.title
-						.description(data-aos='fade-up')
-							p= "博主简介"
+						.description
+							p(data-aos='fade-up')= "另有别名「矩阵良」，码字翻译搞CP，本质阿宅，不懂物理。"
+							p(data-aos='fade-up')
+								span= "期间限定专情。近期"
+								span.special="皿三昧"
+								span= "/"
+								span.special= "ACCA13区监察课"
+								span= "/"
+								span.special= "花归葬"
+								span= "/"
+								span.special= "少女歌剧"
+								span= "狂热中，时有发疯请注意闪避。"
 					#site_info(data-aos='fade-up')
 						span= '截至'+ site.now.year + '年，本站共有'
 						span= '%s篇文章，' %(d.get_data(types='post', return_count=true, with_page=false))
 						span= '%s字。' %('{0:,}'.format(site.text_words))
 				#powered_by
 					+site.socials
-					| Theme <a href='https://mrx.moe/zi-zhi/bitcron-theme-sara', target='_blank'>Sara</a> by <a href='https://mrx.moe', target='_blank'>MRX</a>, Powered by <a href='https://bitcron.com', target='_blank'>Bitcron</a>
+					| Theme <a href='https://mrx.moe/zi-zhi/bitcron-theme-sara', target='_blank'>Sara</a> by <a href='https://mrx.moe', target='_blank'>MRX</a>, Cover illustration by <a href='https://www.weibo.com/u/3170450091', target='_blank'>Zebra</a>, Powered by <a href='https://bitcron.com', target='_blank'>Bitcron</a>
 
 		+h.back_to_top(label='↾')
 
